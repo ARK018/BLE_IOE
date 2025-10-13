@@ -25,7 +25,7 @@ app.post("/api/start-attendance", async (req, res) => {
     req.body && req.body.scanTime ? parseInt(req.body.scanTime) : 5;
   try {
     const esp32Response = await fetch(
-      "http://192.168.0.111/api/start-attendance",
+      "http://10.27.14.181/api/start-attendance",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,13 +35,11 @@ app.post("/api/start-attendance", async (req, res) => {
     const data = await esp32Response.json();
     res.status(esp32Response.status).json(data);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        status: "error",
-        message: "Failed to contact ESP32",
-        error: error.message,
-      });
+    res.status(500).json({
+      status: "error",
+      message: "Failed to contact ESP32",
+      error: error.message,
+    });
   }
 });
 
